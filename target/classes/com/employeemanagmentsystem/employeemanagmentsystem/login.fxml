@@ -13,7 +13,7 @@
    <children>
       <AnchorPane fx:id="main_form" prefHeight="200.0" prefWidth="200.0">
          <children>
-            <AnchorPane layoutY="3.0" prefHeight="400.0" prefWidth="300.0" styleClass="left-form" stylesheets="@loginDesign.css">
+            <AnchorPane layoutY="1.0" prefHeight="400.0" prefWidth="300.0" styleClass="left-form" stylesheets="@loginDesign.css">
                <children>
                   <FontAwesomeIconView fill="WHITE" glyphName="USERS" layoutX="99.0" layoutY="152.0" size="8em" />
                   <Label layoutX="30.0" layoutY="176.0" text="Employee Managment System" textFill="WHITE">
@@ -22,7 +22,7 @@
                      </font>
                   </Label>
                </children></AnchorPane>
-            <AnchorPane layoutX="300.0" layoutY="5.0" prefHeight="400.0" prefWidth="300.0" styleClass="right-form" stylesheets="@loginDesign.css">
+            <AnchorPane layoutX="300.0" layoutY="1.0" prefHeight="400.0" prefWidth="300.0" styleClass="right-form" stylesheets="@loginDesign.css">
                <children>
                   <Label layoutX="20.0" layoutY="97.0" text="Welcome back Admin!" textFill="#256b51">
                      <font>

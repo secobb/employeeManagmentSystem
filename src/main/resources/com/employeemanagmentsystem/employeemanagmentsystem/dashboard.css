@@ -22,3 +22,6 @@
     -fx-background-color:#fff;
     -fx-background-radius:8px;
 }
+.search{
+    -fx-padding:0px 0px 0px 30px;
+}

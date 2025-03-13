@@ -1,19 +1,22 @@
 package com.employeemanagmentsystem.employeemanagmentsystem;
 
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.chart.BarChart;
-import javafx.scene.control.Button;
-import javafx.scene.control.ComboBox;
-import javafx.scene.control.Label;
-import javafx.scene.control.TableColumn;
-import javafx.scene.control.TableView;
-import javafx.scene.control.TextField;
+import javafx.scene.control.*;
 import javafx.scene.image.ImageView;
+import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
+import javafx.stage.Stage;
+import javafx.stage.StageStyle;
 
 import java.net.URL;
+import java.util.Optional;
 import java.util.ResourceBundle;
+import java.util.Stack;
 
 public class DashboardController implements Initializable {
 
@@ -160,6 +163,61 @@ public class DashboardController implements Initializable {
 
     @FXML
     private Label username;
+
+    @FXML
+    private AnchorPane main_form;
+
+    private double x = 0;
+    private double y = 0;
+
+    public void logout(){
+        Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
+        alert.setTitle("Confirmation Message");
+        alert.setHeaderText(null);
+        alert.setContentText("Are you sure you want to logout?");
+        Optional<ButtonType> option = alert.showAndWait();
+
+        try {
+            if (option.get().equals(ButtonType.OK)) {
+
+                logout.getScene().getWindow().hide();
+                Parent root = FXMLLoader.load(getClass().getResource("login.fxml"));
+                Stage stage = new Stage();
+                Scene scene = new Scene(root);
+
+                root.setOnMousePressed((MouseEvent event) ->{
+                    x = event.getSceneX();
+                    y = event.getSceneY();
+                });
+
+                root.setOnMouseDragged((MouseEvent event) ->{
+                    stage.setX(event.getScreenX() - x);
+                    stage.setY(event.getScreenY() - y);
+
+                    stage.setOpacity(.8);
+                });
+
+                root.setOnMouseReleased((MouseEvent event) ->{
+                    stage.setOpacity(1);
+                });
+                stage.initStyle(StageStyle.UNDECORATED);
+                stage.setScene(scene);
+                stage.show();
+
+            }
+        } catch (Exception e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+    public void close(){
+        System.exit(0);
+    }
+
+    public void minimize(){
+        Stage stage = (Stage)main_form.getScene().getWindow();
+        stage.setIconified(true);
+    }
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {

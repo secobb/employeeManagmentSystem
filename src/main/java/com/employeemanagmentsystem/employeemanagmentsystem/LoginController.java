@@ -8,8 +8,10 @@ import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
+import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
+import javafx.stage.StageStyle;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -30,6 +32,9 @@ public class LoginController {
 
     @FXML
     private TextField username;
+
+    private double x = 0;
+    private double y = 0;
 
     // DATABASE TOOLS
     private Connection connect;
@@ -68,6 +73,22 @@ public class LoginController {
                     Stage stage = new Stage();
                     Scene scene = new Scene(root);
 
+                    root.setOnMousePressed((MouseEvent event) ->{
+                        x = event.getSceneX();
+                        y = event.getSceneY();
+                    });
+
+                    root.setOnMouseDragged((MouseEvent event) ->{
+                        stage.setX(event.getScreenX() - x);
+                        stage.setY(event.getScreenY() - y);
+
+                        stage.setOpacity(.8);
+                    });
+
+                    root.setOnMouseReleased((MouseEvent event) ->{
+                        stage.setOpacity(1);
+                    });
+                    stage.initStyle(StageStyle.UNDECORATED);
                     stage.setScene(scene);
                     stage.show();
                 }else{

@@ -8,6 +8,7 @@ module com.employeemanagmentsystem.employeemanagmentsystem {
     requires org.kordamp.bootstrapfx.core;
     requires java.sql;
     requires mysql.connector.j;
+    requires java.desktop;
 
     opens com.employeemanagmentsystem.employeemanagmentsystem to javafx.fxml;
     exports com.employeemanagmentsystem.employeemanagmentsystem;

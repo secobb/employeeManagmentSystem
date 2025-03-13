@@ -1,5 +1,6 @@
 package com.employeemanagmentsystem.employeemanagmentsystem;
 
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
@@ -167,6 +168,36 @@ public class DashboardController implements Initializable {
     @FXML
     private AnchorPane main_form;
 
+    public void switchForm(ActionEvent event){
+        if(event.getSource() == home_btn){
+            home_form.setVisible(true);
+            addEmployee_form.setVisible(false);
+            salary_form.setVisible(false);
+
+            home_btn.setStyle("-fx-background-color:#fff");
+            addEmployee_btn.setStyle(null);
+            salary_btn.setStyle(null);
+
+        } else if (event.getSource() == addEmployee_btn) {
+            home_form.setVisible(false);
+            addEmployee_form.setVisible(true);
+            salary_form.setVisible(false);
+
+            home_btn.setStyle(null);
+            addEmployee_btn.setStyle("-fx-background-color:#fff");
+            salary_btn.setStyle(null);
+
+        } else if (event.getSource() == salary_btn) {
+            home_form.setVisible(false);
+            addEmployee_form.setVisible(false);
+            salary_form.setVisible(true);
+
+            home_btn.setStyle(null);
+            addEmployee_btn.setStyle(null);
+            salary_btn.setStyle("-fx-background-color:#fff");
+        }
+    }
+
     private double x = 0;
     private double y = 0;
 
@@ -193,13 +224,8 @@ public class DashboardController implements Initializable {
                 root.setOnMouseDragged((MouseEvent event) ->{
                     stage.setX(event.getScreenX() - x);
                     stage.setY(event.getScreenY() - y);
-
-                    stage.setOpacity(.8);
                 });
 
-                root.setOnMouseReleased((MouseEvent event) ->{
-                    stage.setOpacity(1);
-                });
                 stage.initStyle(StageStyle.UNDECORATED);
                 stage.setScene(scene);
                 stage.show();

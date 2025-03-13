@@ -27,13 +27,8 @@ public class LoginApplication extends Application {
         scene.setOnMouseDragged((MouseEvent event) ->{
             stage.setX(event.getScreenX() - x);
             stage.setY(event.getScreenY() - y);
-
-            stage.setOpacity(.8);
         });
 
-        scene.setOnMouseReleased((MouseEvent event) ->{
-            stage.setOpacity(1);
-        });
 
         stage.initStyle(StageStyle.UNDECORATED);
         stage.setScene(scene);

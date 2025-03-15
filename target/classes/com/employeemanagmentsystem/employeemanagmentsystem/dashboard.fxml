@@ -65,16 +65,16 @@
                                  </font>
                               </Label>
                               <Line endX="100.0" layoutX="85.0" layoutY="180.0" startX="-70.0" stroke="WHITE" />
-                              <Button fx:id="home_btn" layoutX="11.0" layoutY="199.0" mnemonicParsing="false" prefHeight="35.0" prefWidth="180.0" styleClass="nav-btn" text="Home" AnchorPane.bottomAnchor="320.2">
+                              <Button fx:id="home_btn" layoutX="11.0" layoutY="199.0" mnemonicParsing="false" onAction="#switchForm" prefHeight="35.0" prefWidth="180.0" styleClass="nav-btn" text="Home" AnchorPane.bottomAnchor="320.2">
                                  <graphic>
                                     <FontAwesomeIconView glyphName="HOME" size="1.5em" />
                                  </graphic></Button>
-                              <Button fx:id="addEmployee_btn" layoutX="11.0" layoutY="237.0" mnemonicParsing="false" prefHeight="35.0" prefWidth="180.0" styleClass="nav-btn" text="Add Employee">
+                              <Button fx:id="addEmployee_btn" layoutX="11.0" layoutY="237.0" mnemonicParsing="false" onAction="#switchForm" prefHeight="35.0" prefWidth="180.0" styleClass="nav-btn" text="Add Employee">
                                  <graphic>
                                     <FontAwesomeIconView glyphName="PLUS" size="1.5em" />
                                  </graphic>
                               </Button>
-                              <Button fx:id="salary_btn" layoutX="11.0" layoutY="275.0" mnemonicParsing="false" prefHeight="35.0" prefWidth="180.0" styleClass="nav-btn" text="Employee Salary">
+                              <Button fx:id="salary_btn" layoutX="11.0" layoutY="275.0" mnemonicParsing="false" onAction="#switchForm" prefHeight="35.0" prefWidth="180.0" styleClass="nav-btn" text="Employee Salary">
                                  <graphic>
                                     <FontAwesomeIconView glyphName="MONEY" size="1.5em" />
                                  </graphic>
@@ -97,7 +97,7 @@
                <center>
                   <AnchorPane prefHeight="200.0" prefWidth="200.0" BorderPane.alignment="CENTER">
                      <children>
-                        <AnchorPane fx:id="home_form" layoutX="122.0" layoutY="50.0" prefHeight="554.4" prefWidth="900.0" visible="false" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                        <AnchorPane fx:id="home_form" layoutX="122.0" layoutY="50.0" prefHeight="554.4" prefWidth="900.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                            <children>
                               <AnchorPane layoutX="14.0" layoutY="14.0" prefHeight="531.0" prefWidth="873.0" stylesheets="@dashboard.css">
                                  <styleClass>
@@ -169,7 +169,7 @@
                                  </children>
                               </AnchorPane>
                            </children></AnchorPane>
-                        <AnchorPane fx:id="addEmployee_form" layoutY="141.0" prefHeight="554.4" prefWidth="900.0" stylesheets="@dashboard.css" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                        <AnchorPane fx:id="addEmployee_form" layoutY="141.0" prefHeight="554.4" prefWidth="900.0" stylesheets="@dashboard.css" visible="false" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                            <children>
                               <AnchorPane layoutX="14.0" layoutY="14.0" prefHeight="531.0" prefWidth="875.0" stylesheets="@dashboard.css">
                                  <children>

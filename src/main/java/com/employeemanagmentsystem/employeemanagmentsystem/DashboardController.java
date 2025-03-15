@@ -168,6 +168,10 @@ public class DashboardController implements Initializable {
     @FXML
     private AnchorPane main_form;
 
+    public void displayUsername(){
+        username.setText(getData.username);
+    }
+
     public void switchForm(ActionEvent event){
         if(event.getSource() == home_btn){
             home_form.setVisible(true);
@@ -247,6 +251,6 @@ public class DashboardController implements Initializable {
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
-
+        displayUsername();
     }
 }

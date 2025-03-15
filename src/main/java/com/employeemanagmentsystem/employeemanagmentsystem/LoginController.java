@@ -62,6 +62,8 @@ public class LoginController {
                 alert.showAndWait();
             }else{
                 if(result.next()){
+                    getData.username = username.getText();
+
                     alert = new Alert(Alert.AlertType.INFORMATION);
                     alert.setTitle("Information Message");
                     alert.setHeaderText(null);
@@ -81,13 +83,8 @@ public class LoginController {
                     root.setOnMouseDragged((MouseEvent event) ->{
                         stage.setX(event.getScreenX() - x);
                         stage.setY(event.getScreenY() - y);
-
-                        stage.setOpacity(.8);
                     });
 
-                    root.setOnMouseReleased((MouseEvent event) ->{
-                        stage.setOpacity(1);
-                    });
                     stage.initStyle(StageStyle.UNDECORATED);
                     stage.setScene(scene);
                     stage.show();

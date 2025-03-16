@@ -1,5 +1,8 @@
 package com.employeemanagmentsystem.employeemanagmentsystem;
 
+import javafx.beans.Observable;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -15,6 +18,9 @@ import javafx.stage.Stage;
 import javafx.stage.StageStyle;
 
 import java.net.URL;
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.util.Optional;
 import java.util.ResourceBundle;
 import java.util.Stack;
@@ -167,6 +173,26 @@ public class DashboardController implements Initializable {
 
     @FXML
     private AnchorPane main_form;
+
+    private Connection connect;
+    private PreparedStatement prepare;
+    private ResultSet result;
+
+    public ObservableList<employeeData> addEmployeeListData(){
+        ObservableList<employeeData> listData = FXCollections.observableArrayList();
+        String sql = "SELECT * FROM employee";
+
+        DatabaseConnection connectNow = new DatabaseConnection();
+        connect = connectNow.getConnection();
+
+        try{
+            prepare = connect.prepareStatement(sql);
+
+        } catch (Exception e) {
+            throw new RuntimeException(e);
+        }
+        return listData;
+    }
 
     public void displayUsername(){
         username.setText(getData.username);

@@ -187,6 +187,21 @@ public class DashboardController implements Initializable {
 
         try{
             prepare = connect.prepareStatement(sql);
+            result = prepare.executeQuery();
+            employeeData employeeD;
+
+            while (result.next()){
+                employeeD = new employeeData(result.getInt("employee_id")
+                        , result.getString("firstName")
+                        , result.getString("lastName")
+                        , result.getString("gender")
+                        , result.getString("phoneNum")
+                        , result.getString("position")
+                        , result.getString("image")
+                        , result.getDate("date"));
+
+                listData.add(employeeD);
+            }
 
         } catch (Exception e) {
             throw new RuntimeException(e);

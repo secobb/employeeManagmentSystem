@@ -11,6 +11,8 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.chart.BarChart;
 import javafx.scene.control.*;
+import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
@@ -37,25 +39,28 @@ public class DashboardController implements Initializable {
     private Button addEmployee_clearBtn;
 
     @FXML
-    private TableColumn<?, ?> addEmployee_col_date;
+    private TableView<employeeData> addEmployee_tableView;
 
     @FXML
-    private TableColumn<?, ?> addEmployee_col_employeeID;
+    private TableColumn<employeeData, String> addEmployee_col_date;
 
     @FXML
-    private TableColumn<?, ?> addEmployee_col_firstName;
+    private TableColumn<employeeData, String> addEmployee_col_employeeID;
 
     @FXML
-    private TableColumn<?, ?> addEmployee_col_gender;
+    private TableColumn<employeeData, String> addEmployee_col_firstName;
 
     @FXML
-    private TableColumn<?, ?> addEmployee_col_lastName;
+    private TableColumn<employeeData, String> addEmployee_col_gender;
 
     @FXML
-    private TableColumn<?, ?> addEmployee_col_phoneNum;
+    private TableColumn<employeeData, String> addEmployee_col_lastName;
 
     @FXML
-    private TableColumn<?, ?> addEmployee_col_position;
+    private TableColumn<employeeData, String> addEmployee_col_phoneNum;
+
+    @FXML
+    private TableColumn<employeeData, String> addEmployee_col_position;
 
     @FXML
     private Button addEmployee_deleteBtn;
@@ -89,9 +94,6 @@ public class DashboardController implements Initializable {
 
     @FXML
     private TextField addEmployee_search;
-
-    @FXML
-    private TableView<?> addEmployee_tableView;
 
     @FXML
     private Button addEmployee_updateBtn;
@@ -178,6 +180,8 @@ public class DashboardController implements Initializable {
     private PreparedStatement prepare;
     private ResultSet result;
 
+    private Image image;
+
     public ObservableList<employeeData> addEmployeeListData(){
         ObservableList<employeeData> listData = FXCollections.observableArrayList();
         String sql = "SELECT * FROM employee";
@@ -207,6 +211,40 @@ public class DashboardController implements Initializable {
             throw new RuntimeException(e);
         }
         return listData;
+    }
+
+    private ObservableList<employeeData> addEmployeeList;
+    public void addEmployeeShowListData(){
+        addEmployeeList = addEmployeeListData();
+
+        addEmployee_col_employeeID.setCellValueFactory(new PropertyValueFactory<>("employeeId"));
+        addEmployee_col_firstName.setCellValueFactory(new PropertyValueFactory<>("firstName"));
+        addEmployee_col_lastName.setCellValueFactory(new PropertyValueFactory<>("lastName"));
+        addEmployee_col_gender.setCellValueFactory(new PropertyValueFactory<>("gender"));
+        addEmployee_col_phoneNum.setCellValueFactory(new PropertyValueFactory<>("phoneNum"));
+        addEmployee_col_position.setCellValueFactory(new PropertyValueFactory<>("position"));
+        addEmployee_col_date.setCellValueFactory(new PropertyValueFactory<>("date"));
+
+        addEmployee_tableView.setItems(addEmployeeList);
+    }
+
+    public  void addEmployeeSelect(){
+        employeeData employeeD = addEmployee_tableView.getSelectionModel().getSelectedItem();
+        int num = addEmployee_tableView.getSelectionModel().getSelectedIndex();
+
+        if ((num -1) < -1) {return;}
+
+        addEmployee_employeeID.setText(String.valueOf(employeeD.getEmployeeId()));
+        addEmployee_firstName.setText(employeeD.getFirstName());
+        addEmployee_lastName.setText(employeeD.getLastName());
+        addEmployee_phoneNum.setText(employeeD.getPhoneNum());
+
+        String uri = "file:" + employeeD.getImage();
+
+        image = new Image(uri, 100, 130, false, true);
+
+        addEmployee_image.setImage(image);
+
     }
 
     public void displayUsername(){
@@ -293,5 +331,6 @@ public class DashboardController implements Initializable {
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         displayUsername();
+        addEmployeeShowListData();
     }
 }

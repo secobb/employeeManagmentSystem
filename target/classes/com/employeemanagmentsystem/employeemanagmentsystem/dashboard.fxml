@@ -59,7 +59,7 @@
                                     <Font name="Tahoma" size="17.0" />
                                  </font>
                               </Label>
-                              <Label fx:id="username" alignment="CENTER" layoutX="14.0" layoutY="143.0" prefHeight="22.0" prefWidth="172.0" text="USER" textAlignment="CENTER" textFill="WHITE">
+                              <Label fx:id="username" alignment="CENTER" layoutX="14.0" layoutY="143.0" prefHeight="22.0" prefWidth="172.0" text="TEST" textAlignment="CENTER" textFill="WHITE">
                                  <font>
                                     <Font name="Tahoma Bold" size="17.0" />
                                  </font>

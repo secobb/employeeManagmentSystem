@@ -1,6 +1,5 @@
 package com.employeemanagmentsystem.employeemanagmentsystem;
 
-import javafx.beans.Observable;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -16,6 +15,7 @@ import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
+import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
 
@@ -23,9 +23,11 @@ import java.net.URL;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.sql.Statement;
+import java.util.Date;
 import java.util.Optional;
 import java.util.ResourceBundle;
-import java.util.Stack;
+import java.io.File;
 
 public class DashboardController implements Initializable {
 
@@ -178,9 +180,107 @@ public class DashboardController implements Initializable {
 
     private Connection connect;
     private PreparedStatement prepare;
+    private Statement statement;
     private ResultSet result;
 
     private Image image;
+
+    public void addEmployeeAdd(){
+
+        Date date = new Date();
+        java.sql.Date sqlDate = new java.sql.Date(date.getTime());
+        String sql = "INSERT INTO employee "
+                + "(employee_id, firstName, lastName, gender, phoneNum, position, image, date) "
+                + "VALUES(?,?,?,?,?,?,?,?)";
+
+        DatabaseConnection connectNow = new DatabaseConnection();
+        connect = connectNow.getConnection();
+
+        try {
+            Alert alert;
+
+            if(addEmployee_employeeID.getText().isEmpty()
+                    || addEmployee_firstName.getText().isEmpty()
+                    || addEmployee_lastName.getText().isEmpty()
+                    || addEmployee_gender.getSelectionModel().getSelectedItem() == null
+                    || addEmployee_phoneNum.getText().isEmpty()
+                    || addEmployee_position.getSelectionModel().getSelectedItem() == null
+                    || getData.path == null || getData.path == ""){
+                alert = new Alert(Alert.AlertType.ERROR);
+                alert.setTitle("Error Message");
+                alert.setHeaderText(null);
+                alert.setContentText("Please fill all blank fields");
+                alert.showAndWait();
+            } else {
+
+                String check = "SELECT employee_id FROM employee WHERE employee_id = '"
+                        +addEmployee_employeeID.getText()+"'";
+
+                statement = connect.createStatement();
+                result = statement.executeQuery(check);
+
+                if(result.next()){
+                    alert = new Alert(Alert.AlertType.ERROR);
+                    alert.setTitle("Error Message");
+                    alert.setHeaderText(null);
+                    alert.setContentText("Employee ID: "+addEmployee_employeeID.getText()+" was already exist!");
+                    alert.showAndWait();
+                } else {
+
+                    prepare = connect.prepareStatement(sql);
+                    prepare.setString(1, addEmployee_employeeID.getText());
+                    prepare.setString(2, addEmployee_firstName.getText());
+                    prepare.setString(3, addEmployee_lastName.getText());
+                    prepare.setString(4, (String) addEmployee_gender.getSelectionModel().getSelectedItem());
+                    prepare.setString(5, addEmployee_phoneNum.getText());
+                    prepare.setString(6, String.valueOf(addEmployee_position.getSelectionModel().getSelectedItem()));
+
+                    String uri = getData.path;
+                    uri = uri.replace("\\", "\\\\");
+
+                    prepare.setString(7, uri);
+                    prepare.setString(8, String.valueOf(sqlDate));
+                    prepare.executeUpdate();
+
+                    alert = new Alert(Alert.AlertType.INFORMATION);
+                    alert.setTitle("Information Message");
+                    alert.setHeaderText(null);
+                    alert.setContentText("Successfully Added!");
+                    alert.showAndWait();
+
+                    addEmployeeShowListData();
+                    addEmployeeReset();
+                }
+            }
+
+        } catch (Exception e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+    public void addEmployeeReset(){
+        addEmployee_employeeID.setText("");
+        addEmployee_firstName.setText("");
+        addEmployee_lastName.setText("");
+        addEmployee_gender.getSelectionModel().clearSelection();
+        addEmployee_phoneNum.setText("");
+        addEmployee_position.getSelectionModel().clearSelection();
+        getData.path = "";
+    }
+
+    public void addEmployeeInsertImage(){
+        FileChooser open = new FileChooser();
+        File file = open.showOpenDialog(main_form.getScene().getWindow());
+
+        if(file != null){
+            getData.path = file.getAbsolutePath();
+
+            image = new Image(file.toURI().toString(), 100, 130, false, true);
+            addEmployee_image.setImage(image);
+        }
+    }
+
+    
 
     public ObservableList<employeeData> addEmployeeListData(){
         ObservableList<employeeData> listData = FXCollections.observableArrayList();
@@ -232,7 +332,7 @@ public class DashboardController implements Initializable {
         employeeData employeeD = addEmployee_tableView.getSelectionModel().getSelectedItem();
         int num = addEmployee_tableView.getSelectionModel().getSelectedIndex();
 
-        if ((num -1) < -1) {return;}
+        if ((num-1) < -1) {return;}
 
         addEmployee_employeeID.setText(String.valueOf(employeeD.getEmployeeId()));
         addEmployee_firstName.setText(employeeD.getFirstName());
@@ -244,7 +344,6 @@ public class DashboardController implements Initializable {
         image = new Image(uri, 100, 130, false, true);
 
         addEmployee_image.setImage(image);
-
     }
 
     public void displayUsername(){

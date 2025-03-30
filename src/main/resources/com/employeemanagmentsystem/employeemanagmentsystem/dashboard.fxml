@@ -97,7 +97,7 @@
                <center>
                   <AnchorPane prefHeight="200.0" prefWidth="200.0" BorderPane.alignment="CENTER">
                      <children>
-                        <AnchorPane fx:id="home_form" layoutX="122.0" layoutY="50.0" prefHeight="554.4" prefWidth="900.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                        <AnchorPane fx:id="home_form" layoutX="122.0" layoutY="50.0" prefHeight="554.4" prefWidth="900.0" visible="false" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                            <children>
                               <AnchorPane layoutX="14.0" layoutY="14.0" prefHeight="531.0" prefWidth="873.0" stylesheets="@dashboard.css">
                                  <styleClass>
@@ -169,7 +169,7 @@
                                  </children>
                               </AnchorPane>
                            </children></AnchorPane>
-                        <AnchorPane fx:id="addEmployee_form" layoutY="141.0" prefHeight="554.4" prefWidth="900.0" stylesheets="@dashboard.css" visible="false" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                        <AnchorPane fx:id="addEmployee_form" layoutY="141.0" prefHeight="554.4" prefWidth="900.0" stylesheets="@dashboard.css" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                            <children>
                               <AnchorPane layoutX="14.0" layoutY="14.0" prefHeight="531.0" prefWidth="875.0" stylesheets="@dashboard.css">
                                  <children>
@@ -179,7 +179,7 @@
                                           <String fx:value="shadow" />
                                        </styleClass>
                                        <children>
-                                          <TableView fx:id="addEmployee_tableView" layoutX="10.0" layoutY="60.0" prefHeight="230.0" prefWidth="854.0">
+                                          <TableView fx:id="addEmployee_tableView" layoutX="10.0" layoutY="60.0" onMouseClicked="#addEmployeeSelect" prefHeight="230.0" prefWidth="854.0">
                                             <columns>
                                               <TableColumn fx:id="addEmployee_col_employeeID" prefWidth="93.59999084472656" text="Employee ID" />
                                               <TableColumn fx:id="addEmployee_col_firstName" prefWidth="143.99996948242188" text="First Name" />
@@ -237,13 +237,13 @@
                                        </styleClass>
                                        <children>
                                           <ImageView fx:id="addEmployee_image" fitHeight="130.0" fitWidth="100.0" pickOnBounds="true" preserveRatio="true" />
-                                          <Button fx:id="addEmployee_importBtn" layoutY="104.0" mnemonicParsing="false" prefWidth="100.0" text="Import" />
+                                          <Button fx:id="addEmployee_importBtn" layoutY="104.0" mnemonicParsing="false" onMouseClicked="#addEmployeeInsertImage" prefWidth="100.0" text="Import" />
                                        </children>
                                     </AnchorPane>
-                                    <Button fx:id="addEmployee_addBtn" layoutX="717.0" layoutY="474.0" mnemonicParsing="false" prefHeight="40.0" prefWidth="100.0" text="Add" />
+                                    <Button fx:id="addEmployee_addBtn" layoutX="717.0" layoutY="474.0" mnemonicParsing="false" onAction="#addEmployeeAdd" prefHeight="40.0" prefWidth="100.0" text="Add" />
                                     <Button fx:id="addEmployee_updateBtn" layoutX="605.0" layoutY="474.0" mnemonicParsing="false" prefHeight="40.0" prefWidth="100.0" text="Update" />
                                     <Button fx:id="addEmployee_deleteBtn" layoutX="466.0" layoutY="474.0" mnemonicParsing="false" prefHeight="40.0" prefWidth="100.0" text="Delete" />
-                                    <Button fx:id="addEmployee_clearBtn" layoutX="354.0" layoutY="474.0" mnemonicParsing="false" prefHeight="40.0" prefWidth="100.0" text="Clear" />
+                                    <Button fx:id="addEmployee_clearBtn" layoutX="354.0" layoutY="474.0" mnemonicParsing="false" onAction="#addEmployeeReset" prefHeight="40.0" prefWidth="100.0" text="Clear" />
                                  </children>
                                  <styleClass>
                                     <String fx:value="white-bg" />
